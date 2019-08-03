@@ -8,8 +8,8 @@ default: &default
   #
   # If you're on a Mac and installed postgres via homebrew, you can simply
   # leave the following two lines commented out.
-  # username: postgres
-  # password: 123456
+  username: ania
+  password: 123456
 
 development:
   <<: *default

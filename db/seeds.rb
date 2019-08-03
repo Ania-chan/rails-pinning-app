@@ -13,20 +13,20 @@ Pin.create(
   resource_type: "rails")
 Pin.create(
   title: 'Try Ruby', 
-  url: 'http://tryruby.org/', 
+  url: 'https://ruby.github.io/TryRuby/', 
   text: "An interactive, in-browser tutorial for the Ruby programming language. A thorough walkthrough of 
     Ruby's nuances, geared toward beginners.", 
   slug: "try-ruby",
   resource_type: "ruby")
 Pin.create(
   title: 'Ruby Quiz', 
-  url: 'http://rubyquiz.org', 
+  url: 'http://rubyquiz.com/', 
   text: "A collection of quizzes on the Ruby programming language.", 
   slug: "ruby-quiz",
   resource_type: "ruby")
 Pin.create(
   title: 'Ruby on Rails for Developers', 
-  url: 'https://github.com/generalassembly/ga-ruby-on-rails-for-devs', 
+  url: 'https://github.com/dimroc/ga-ruby-on-rails-for-devs', 
   text: "Somewhat advanced curriculum, but the exercises are also good for anyone who is motivated and 
     self-guided with experience.", 
   slug: "ga-ror-for-developers",
