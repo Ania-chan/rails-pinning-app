@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+    <h1>New Pin</h1>
+      <%= form_for @pin do |f| %>
+        <div class="form-group">
+          <label for="pin_title">Title</label>
+          <%= f.text_field :title, class:'form-control' %>
+
+          <label for="pin_url">url</label>
+          <%= f.text_field :url, class:'form-control' %>
+
+          <label for="pin_slug">slug</label>
+          <%= f.text_field :slug, class:'form-control' %>
+
+          <label for="pin_text">Descriptions</label>
+          <%= f.text_area :text, class:'form-control' %>
+        
+          <label for="category_id">Category</label>
+          <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class: 'form-control'}) %>
+
+          </div>
+          <%= f.submit class:'btn btn-default', type: 'button' %>
+      <% end %>
+    </div>
+  </div>
+</div>
