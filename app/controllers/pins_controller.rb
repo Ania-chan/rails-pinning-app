@@ -24,7 +24,7 @@ class PinsController < ApplicationController
       redirect_to pin_path(@pin)
     else
       @errors = @pin.errors
-      redirect_to new_pin_path
+      render :new
     end
   end
 
