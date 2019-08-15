@@ -39,7 +39,7 @@ RSpec.describe PinsController do
         url: "http://railswizard.org", 
         slug: "rails-wizard", 
         text: "A fun and helpful Rails Resource",
-        resource_type: "rails"}    
+        category_id: 1}    
     end
     
     after(:each) do
@@ -85,12 +85,12 @@ RSpec.describe PinsController do
 
   describe "GET edit_by_name" do
     before(:each) do
-      @pin_hash = { 
+      @pin_hash = Pin.create( 
         title: "Rails Wizard", 
         url: "http://railswizard.org", 
         slug: "rails-wizard", 
         text: "A fun and helpful Rails Resource",
-        resource_type: "rails"}    
+        category_id: 1)   
     end
     
     after(:each) do
@@ -101,29 +101,37 @@ RSpec.describe PinsController do
     end
 
     it 'responds with successfully' do
-      get :edit_by_name, pin: @pin_hash
+      get :edit_by_name, slug: @pin_hash.slug
       expect(response.success?).to be(true)
     end
     
     it 'renders the edit view' do
-      get :edit_by_name, pin: @pin_hash
+      get :edit_by_name, slug: @pin_hash.slug
       expect(response).to render_template(:edit)
     end
     
     it 'assigns an instance variable to an existing pin' do
-      get :edit_by_name, pin: @pin_hash
-      expect(assigns(:pin)).to eq(Pin.find_by_slug("rails-wizard"))
+      get :edit_by_name, slug: @pin_hash.slug
+      expect(assigns(:pin)).to eq(@pin_hash)
     end
   end
 
   describe "PATCH update" do
     before(:each) do
-      @pin_hash = { 
+      @pin_hash = Pin.create(
         title: "Rails Wizard", 
         url: "http://railswizard.org", 
         slug: "rails-wizard", 
         text: "A fun and helpful Rails Resource",
-        resource_type: "rails"}    
+        category_id: 1
+      )   
+      @updated_pin = {
+        title: "New Title", 
+        url: "http://railswizard.org", 
+        slug: "rails-wizard", 
+        text: "A fun and helpful Rails Resource",
+        category_id: 1
+      }    
     end
     
     after(:each) do
@@ -134,26 +142,26 @@ RSpec.describe PinsController do
     end
     
     it 'responds with a redirect' do
-      patch :update, { title: "New Title" }
+      patch :update, id: @pin_hash.id, pin: @updated_pin
       expect(response.redirect?).to be(true)
     end
     
     it 'updates a pin' do
-      patch :update, { title: "New Title" }
+      patch :update, id: @pin_hash.id, pin: @updated_pin
       expect(@pin_hash.reload.title == "New Title").to be(true)
     end
     
     it 'redirects to the show view' do
-      patch :update, { title: "New Title" }
-      expect(response).to redirect_to(pin_url(@pin_hash))
+      patch :update, id: @pin_hash.id, pin: @updated_pin
+      expect(response).to redirect_to(pin_url(assigns(:pin)))
     end
     
     it 'redisplays edit form on error' do
       # The title is required in the Pin model, so we'll
       # delete the title from the @pin_hash in order
       # to test what happens with invalid parameters
-      @pin_hash.delete(:title)
-      patch :update, pin: @pin_hash
+      @updated_pin.delete(:title)
+      patch :update, id: @pin_hash.id, pin: @updated_pin
       expect(response).to render_template(:edit)
     end
     
@@ -161,8 +169,8 @@ RSpec.describe PinsController do
       # The title is required in the Pin model, so we'll
       # delete the title from the @pin_hash in order
       # to test what happens with invalid parameters
-      @pin_hash.delete(:title)
-      patch :update, pin: @pin_hash
+      @updated_pin.delete(:title)
+      patch :update, id: @pin_hash.id, pin: @updated_pin
       expect(assigns[:errors].present?).to be(true)
     end    
   end
