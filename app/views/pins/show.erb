@@ -6,7 +6,18 @@
 </div>
 
 <div class="show-pin">
-  <p><%= "#{@pin.text}" %></p>
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <% if @pin.image.exists? %>
+        <img src="<%= @pin.image.url(:medium) %>" class="img-responsive">
+      <% else %>
+        <img src="http://placebear.com/300/300" class="img-responsive">
+      <% end %>
+    </div>
+    <div class=" col-xs-12 col-md-8">
+      <p><%= "#{@pin.text}" %></p>
+    </div>
+</div>
 
   <hr/>
   <p>

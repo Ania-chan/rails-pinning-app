@@ -8,11 +8,12 @@
     <div class="row">
       <% row.each do |pin| %>      
         <div class="pin-container col-md-4">
-
           <div class="pin">
             <div class="pin-header row">
               <div class="logo-thumbnail col-xs-3">
-                <% if "#{pin.category.name}" == "rails" %>
+              <% if pin.image.exists? %>
+                  <img src="<%= @pin.image.url(:thumb) %>" class="img-rounded">
+                <% elsif "#{pin.category.name}" == "rails" %>
                   <%= image_tag('rails-logo-thumbnail.png') %>
                 <% elsif "#{pin.category.name}" == "ruby" %>
                   <%= image_tag('ruby-logo-thumbnail.png') %>
