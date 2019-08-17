@@ -12,7 +12,7 @@
             <div class="pin-header row">
               <div class="logo-thumbnail col-xs-3">
               <% if pin.image.exists? %>
-                  <img src="<%= @pin.image.url(:thumb) %>" class="img-rounded">
+                  <img src="<%= pin.image.url(:thumb) %>" class="img-rounded">
                 <% elsif "#{pin.category.name}" == "rails" %>
                   <%= image_tag('rails-logo-thumbnail.png') %>
                 <% elsif "#{pin.category.name}" == "ruby" %>

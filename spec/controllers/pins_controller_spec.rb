@@ -39,7 +39,8 @@ RSpec.describe PinsController do
         url: "http://railswizard.org", 
         slug: "rails-wizard", 
         text: "A fun and helpful Rails Resource",
-        category_id: 1}    
+        category_id: 1,
+        image: nil}    
     end
     
     after(:each) do
@@ -90,7 +91,8 @@ RSpec.describe PinsController do
         url: "http://railswizard.org", 
         slug: "rails-wizard", 
         text: "A fun and helpful Rails Resource",
-        category_id: 1)   
+        category_id: 1,
+        image: nil)   
     end
     
     after(:each) do
@@ -123,14 +125,16 @@ RSpec.describe PinsController do
         url: "http://railswizard.org", 
         slug: "rails-wizard", 
         text: "A fun and helpful Rails Resource",
-        category_id: 1
+        category_id: 1,
+        image: nil
       )   
       @updated_pin = {
         title: "New Title", 
         url: "http://railswizard.org", 
         slug: "rails-wizard", 
         text: "A fun and helpful Rails Resource",
-        category_id: 1
+        category_id: 1,
+        image: nil
       }    
     end
     
