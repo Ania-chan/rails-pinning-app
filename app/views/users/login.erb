@@ -1,0 +1,24 @@
+<% if !@errors.nil? %>
+  <div class="error alert alert-danger" role="alert">
+    <%= @errors %>
+  </div>
+<% end %>
+
+<h1>Login</h1>
+
+<div class="row">
+  <div class="col-md-6">
+  <%= form_tag "/login" do %>
+    <div class="form-group">
+        <label for="user_email">Email</label>
+        <%= text_field_tag 'email', nil, class:'form-control', type:'email' %>
+
+        <label for="user_password">Password</label>
+        <%= text_field_tag 'password', nil, class:'form-control', type:'password' %>
+        </div>
+        <%= button_tag 'Login', class:'btn btn-default' %>
+      <% end %>
+  </div>
+</div>
+
+<%= link_to 'Back', users_path %>

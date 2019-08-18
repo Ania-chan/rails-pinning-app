@@ -1,5 +1,23 @@
+<div class="row">
+<div class="col-md-6">
+<% if !@errors.nil? %>
+  <div class="error alert alert-danger" role="alert">
+    <label><%= pluralize(@errors.count, "error") %> prohibited signup:</label>
+    <ul>
+      <% @errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
 <h1>Sign Up!</h1>
 
-<%= render 'form', user: @user %>
+<div class="row">
+  <div class="col-md-6">
+    <%= render 'form', user: @user %>
+  </div>
+</div>
 
 <%= link_to 'Back', users_path %>

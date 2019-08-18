@@ -17,6 +17,12 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  # GET /users/login
+  def login
+    @user = User.new
+    render :login
+  end
+
   # GET /users/1/edit
   def edit
   end
@@ -60,6 +66,17 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+    # POST /login
+    def authenticate
+      @user = User.authenticate(params[:email], params[:password])
+      if !@user.nil?
+        redirect_to user_path(@user.id)
+      else
+        @errors = "Either email or password is incorrect"
+        render :login
+      end
+    end
 
   private
     # Use callbacks to share common setup or constraints between actions.
