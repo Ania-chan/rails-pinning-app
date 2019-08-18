@@ -51,17 +51,17 @@ RSpec.describe PinsController do
     end
     
     it 'responds with a redirect' do
-      post :create, pin: @pin_hash
+      post :create, params: { pin: @pin_hash }
       expect(response.redirect?).to be(true)
     end
     
     it 'creates a pin' do
-      post :create, pin: @pin_hash  
+      post :create, params: { pin: @pin_hash }
       expect(Pin.find_by_slug("rails-wizard").present?).to be(true)
     end
     
     it 'redirects to the show view' do
-      post :create, pin: @pin_hash
+      post :create, params: { pin: @pin_hash }
       expect(response).to redirect_to(pin_url(assigns(:pin)))
     end
     
@@ -70,7 +70,7 @@ RSpec.describe PinsController do
       # delete the title from the @pin_hash in order
       # to test what happens with invalid parameters
       @pin_hash.delete(:title)
-      post :create, pin: @pin_hash
+      post :create, params: { pin: @pin_hash }
       expect(response).to render_template(:new)
     end
     
@@ -79,7 +79,7 @@ RSpec.describe PinsController do
       # delete the title from the @pin_hash in order
       # to test what happens with invalid parameters
       @pin_hash.delete(:title)
-      post :create, pin: @pin_hash
+      post :create, params: { pin: @pin_hash }
       expect(assigns[:errors].present?).to be(true)
     end    
   end
@@ -103,17 +103,17 @@ RSpec.describe PinsController do
     end
 
     it 'responds with successfully' do
-      get :edit_by_name, slug: @pin_hash.slug
+      get :edit_by_name, params: { slug: @pin_hash.slug }
       expect(response.success?).to be(true)
     end
     
     it 'renders the edit view' do
-      get :edit_by_name, slug: @pin_hash.slug
+      get :edit_by_name, params: { slug: @pin_hash.slug }
       expect(response).to render_template(:edit)
     end
     
     it 'assigns an instance variable to an existing pin' do
-      get :edit_by_name, slug: @pin_hash.slug
+      get :edit_by_name, params: { slug: @pin_hash.slug }
       expect(assigns(:pin)).to eq(@pin_hash)
     end
   end
@@ -146,17 +146,17 @@ RSpec.describe PinsController do
     end
     
     it 'responds with a redirect' do
-      patch :update, id: @pin_hash.id, pin: @updated_pin
+      patch :update, params: { id: @pin_hash.id, pin: @updated_pin }
       expect(response.redirect?).to be(true)
     end
     
     it 'updates a pin' do
-      patch :update, id: @pin_hash.id, pin: @updated_pin
+      patch :update, params: { id: @pin_hash.id, pin: @updated_pin }
       expect(@pin_hash.reload.title == "New Title").to be(true)
     end
     
     it 'redirects to the show view' do
-      patch :update, id: @pin_hash.id, pin: @updated_pin
+      patch :update, params: { id: @pin_hash.id, pin: @updated_pin }
       expect(response).to redirect_to(pin_url(assigns(:pin)))
     end
     
@@ -164,8 +164,7 @@ RSpec.describe PinsController do
       # The title is required in the Pin model, so we'll
       # delete the title from the @pin_hash in order
       # to test what happens with invalid parameters
-      @updated_pin.delete(:title)
-      patch :update, id: @pin_hash.id, pin: @updated_pin
+      patch :update, params: { id: @pin_hash.id, pin: { title: nil } }
       expect(response).to render_template(:edit)
     end
     
@@ -174,7 +173,7 @@ RSpec.describe PinsController do
       # delete the title from the @pin_hash in order
       # to test what happens with invalid parameters
       @updated_pin.delete(:title)
-      patch :update, id: @pin_hash.id, pin: @updated_pin
+      patch :update, params: { id: @pin_hash.id, pin: { title: nil } }
       expect(assigns[:errors].present?).to be(true)
     end    
   end

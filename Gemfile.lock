@@ -55,10 +55,10 @@ GEM
     aws-sdk-kms (1.24.0)
       aws-sdk-core (~> 3, >= 3.61.1)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.46.0)
-      aws-sdk-core (~> 3, >= 3.61.1)
+    aws-sdk-s3 (1.0.0)
+      aws-sdk-core (~> 3)
       aws-sdk-kms (~> 1)
-      aws-sigv4 (~> 1.1)
+      aws-sigv4 (~> 1.0)
     aws-sdk-v1 (1.67.0)
       json (~> 1.4)
       nokogiri (~> 1)
@@ -243,7 +243,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk (< 2.0)
-  aws-sdk-s3
+  aws-sdk-s3 (~> 1.0.0.rc2)
   bootsnap (>= 1.1.0)
   byebug
   coffee-rails (~> 4.2.2)

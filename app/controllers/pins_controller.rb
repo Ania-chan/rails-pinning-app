@@ -21,7 +21,7 @@ class PinsController < ApplicationController
     @pin = Pin.new(pin_params)
     if @pin.valid?
       @pin.save
-      redirect_to pin_by_name_path(@pin.slug)
+      redirect_to pin_path(@pin.id)
     else
       @errors = @pin.errors
       render :new
@@ -38,7 +38,7 @@ class PinsController < ApplicationController
     @pin.update(pin_params)
     if @pin.valid?
       @pin.save
-      redirect_to pin_by_name_path(@pin.slug)
+      redirect_to pin_path(@pin.id)
     else
       @errors = @pin.errors
       render :edit
