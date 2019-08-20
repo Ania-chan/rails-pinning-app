@@ -28,26 +28,32 @@ RSpec.describe UsersController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
+  before(:each) do 
+    @user = FactoryGirl.build(:user)
+  end
+  after(:each) do
+    @user.destroy
+  end
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
+    {
+      first_name: @user.first_name,
+      last_name: @user.last_name,
+      email: @user.email,
+      password: @user.password
+    }
+  } 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+  {
+    first_name: @user.first_name,
+    last_name: "",
+    password: @user.password
   }
+}  
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
   let(:valid_session) { {} }
-
-  describe "GET #index" do
-    it "returns a success response" do
-      User.create! valid_attributes
-      get :index, params: {}, session: valid_session
-      expect(response).to be_successful
-    end
-  end
 
   describe "GET #show" do
     it "returns a success response" do
@@ -135,6 +141,32 @@ RSpec.describe UsersController, type: :controller do
       user = User.create! valid_attributes
       delete :destroy, params: {id: user.to_param}, session: valid_session
       expect(response).to redirect_to(users_url)
+    end
+  end
+
+  
+  describe "POST login" do
+
+    it "renders the show view if params valid" do
+      user = User.create! valid_attributes
+      post :authenticate, params: { email: @user.email, password: @user.password }
+      expect(response).to redirect_to(user_path(user.id))
+    end
+
+    it "populates @user if params valid" do 
+      user = User.create! valid_attributes
+      post :authenticate, params: { email: @user.email, password: @user.password }
+      expect(assigns(:user)).to eq(user)
+    end
+
+    it "renders the login view if params invalid" do
+      post :authenticate, params: { email: "", password: "" }
+      expect(response).to render_template(:login)
+    end
+
+    it "populates the @errors variable if params invalid" do
+      post :authenticate, params: { email: "", password: "" }
+      expect(assigns[:errors].present?).to be(true)
     end
   end
 

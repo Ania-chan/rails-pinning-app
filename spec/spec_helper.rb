@@ -4,6 +4,12 @@ require 'rspec/rails'
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
+  config.include(Shoulda::Matchers::ActiveModel, type: :model)
+  config.include(Shoulda::Matchers::ActiveRecord, type: :model)
+  
+  config.before(:all) do
+    FactoryGirl.reload
+  end
   
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction

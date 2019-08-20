@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    puts(user_params)
     @user = User.new(user_params)
 
     respond_to do |format|
@@ -71,7 +72,8 @@ class UsersController < ApplicationController
     def authenticate
       @user = User.authenticate(params[:email], params[:password])
       if !@user.nil?
-        redirect_to user_path(@user.id)
+        session[:user_id] = @user.id
+        redirect_to user_path(@user)
       else
         @errors = "Either email or password is incorrect"
         render :login

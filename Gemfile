@@ -33,27 +33,25 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'puma'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-
   gem 'listen', '>= 3.0.5', '< 3.2'
-
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'rails-controller-testing'
+  gem 'wdm', '>= 0.1.0' if Gem.win_platform?
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '~>1.3.4'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-
-  gem 'rspec', '~> 3.8.0'
-  gem 'rspec-rails', '~> 3.8.0'
-  gem 'rails-controller-testing'
-
-  gem 'wdm', '>= 0.1.0' if Gem.win_platform?
+  gem 'factory_girl'
 end
 
 group :test do
-  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'database_cleaner'  
+  gem 'rspec', '~> 3.8.0'
+  gem 'rspec-rails', '~> 3.8.0'
 end
 
 group :development do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 3.7'
 end
@@ -68,3 +66,5 @@ gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 
 gem 'aws-sdk-s3', '~> 1.0.0.rc2'
+
+gem 'bcrypt', '~> 3.1.7'
