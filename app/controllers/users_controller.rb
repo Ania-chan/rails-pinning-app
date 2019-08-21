@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :require_login, only: [:show, :edit, :update, :destroy]
   # GET /users
   # GET /users.json
   def index
@@ -80,6 +80,10 @@ class UsersController < ApplicationController
       end
     end
 
+    def logout
+      session.delete(:user_id)
+    end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -89,5 +93,11 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :password)
+    end
+
+    def require_login
+      if current_user.nil? || current_user.id.nil?
+        redirect_to :login
+      end
     end
 end
