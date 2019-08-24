@@ -30,7 +30,10 @@
             </div>
             <hr/>
             <p class="text"><%= "#{pin.text}" %></p>
-          </div>
+              <%= link_to repin_path(pin), class: "btn btn-sm btn-default pull-left", method: "post" do %>
+                Repin!
+              <% end %>  
+            </div>
         </div>
       <% end %>
     </div>

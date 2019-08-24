@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_21_055518) do
+ActiveRecord::Schema.define(version: 2019_08_24_092225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", id: :serial, force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "pinnings", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "pin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pin_id"], name: "index_pinnings_on_pin_id"
+    t.index ["user_id"], name: "index_pinnings_on_user_id"
   end
 
   create_table "pins", id: :serial, force: :cascade do |t|
@@ -43,5 +52,7 @@ ActiveRecord::Schema.define(version: 2019_08_21_055518) do
     t.string "password_digest"
   end
 
+  add_foreign_key "pinnings", "pins"
+  add_foreign_key "pinnings", "users"
   add_foreign_key "pins", "users"
 end
