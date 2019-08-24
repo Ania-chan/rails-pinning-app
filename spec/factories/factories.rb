@@ -30,7 +30,7 @@ FactoryGirl.define do
     after(:create) do |user|
       3.times do
         user.pinnings.create(pin: FactoryGirl.create(:pin))
+      end
     end
-  end
   end
 end  

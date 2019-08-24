@@ -20,7 +20,7 @@ RSpec.describe PinsController do
 
     it 'populates @pins with all pins' do
       get :index
-      expect(assigns[:pins]).to eq(@user.pins)
+      expect(assigns[:pins]).to eq(Pin.all)
     end
 
     it 'redirects to Login when logged out' do
