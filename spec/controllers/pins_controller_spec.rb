@@ -1,5 +1,15 @@
 require 'spec_helper'
 RSpec.describe PinsController do
+  before(:each) do 
+    @user = FactoryGirl.create(:user)
+    login(@user)
+  end
+
+  after(:each) do
+    if !@user.destroyed?
+      @user.destroy
+    end
+  end  
 
   describe "GET index" do
     
@@ -10,7 +20,13 @@ RSpec.describe PinsController do
 
     it 'populates @pins with all pins' do
       get :index
-      expect(assigns[:pins]).to eq(Pin.all)
+      expect(assigns[:pins]).to eq(@user.pins)
+    end
+
+    it 'redirects to Login when logged out' do
+      logout(@user)
+      get :index
+      expect(response).to redirect_to(:login)
     end
 
   end
@@ -30,6 +46,12 @@ RSpec.describe PinsController do
       get :new
       expect(assigns(:pin)).to be_a_new(Pin)
     end
+
+    it 'redirects to Login when logged out' do
+      logout(@user)
+      get :new
+      expect(response).to redirect_to(:login)
+    end
   end
   
   describe "POST create" do
@@ -40,7 +62,8 @@ RSpec.describe PinsController do
         slug: "rails-wizard", 
         text: "A fun and helpful Rails Resource",
         category_id: 1,
-        image: nil}    
+        image: nil,
+        user_id: @user.id}    
     end
     
     after(:each) do
@@ -81,7 +104,13 @@ RSpec.describe PinsController do
       @pin_hash.delete(:title)
       post :create, params: { pin: @pin_hash }
       expect(assigns[:errors].present?).to be(true)
-    end    
+    end   
+    
+    it 'redirects to Login when logged out' do
+      logout(@user)
+      post :create, params: { pin: @pin_hash }
+      expect(response).to redirect_to(:login)
+    end
   end
 
   describe "GET edit_by_name" do
@@ -92,7 +121,8 @@ RSpec.describe PinsController do
         slug: "rails-wizard", 
         text: "A fun and helpful Rails Resource",
         category_id: 1,
-        image: nil)   
+        image: nil,
+        user_id: @user.id)   
     end
     
     after(:each) do
@@ -116,6 +146,12 @@ RSpec.describe PinsController do
       get :edit_by_name, params: { slug: @pin_hash.slug }
       expect(assigns(:pin)).to eq(@pin_hash)
     end
+
+    it 'redirects to Login when logged out' do
+      logout(@user)
+      get :edit_by_name, params: { slug: @pin_hash.slug }
+      expect(response).to redirect_to(:login)
+    end
   end
 
   describe "PATCH update" do
@@ -126,7 +162,8 @@ RSpec.describe PinsController do
         slug: "rails-wizard", 
         text: "A fun and helpful Rails Resource",
         category_id: 1,
-        image: nil
+        image: nil,
+        user_id: @user.id
       )   
       @updated_pin = {
         title: "New Title", 
@@ -175,7 +212,13 @@ RSpec.describe PinsController do
       @updated_pin.delete(:title)
       patch :update, params: { id: @pin_hash.id, pin: { title: nil } }
       expect(assigns[:errors].present?).to be(true)
-    end    
+    end   
+    
+    it 'redirects to Login when logged out' do
+      logout(@user)
+      patch :update, params: { id: @pin_hash.id, pin: { title: nil } }
+      expect(response).to redirect_to(:login)
+    end
   end
 
 end
