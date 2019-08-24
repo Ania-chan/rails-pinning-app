@@ -32,6 +32,7 @@
             <p class="text"><%= "#{pin.text}" %></p>
             <div class="card-body">
               <%= link_to repin_path(pin), class: "btn btn-sm btn-default pull-left", method: "post" do %>
+                <i class="fa fa-heart"></i>
                 Repin!
               <% end %>  
               </div>

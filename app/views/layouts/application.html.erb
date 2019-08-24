@@ -13,14 +13,16 @@
   <div class="user pull-right">
     <h3>
       <%= "Hi, #{current_user.first_name}!"%> |
-      <%= link_to "Logout", logout_path(current_user), method: :delete %>
+      <%= link_to "New Pin", new_pin_path, method: :get %> |
+      <%= link_to "My Profile", user_path(current_user.id), method: :get %> |
+      <%= link_to "Logout", logout_path(current_user), method: :delete %> 
     </h3>
   </div>
   <% else %>
   <div class="user pull-right">
     <h3>
       <%= link_to "Signup", signup_path, method: :get %> |
-      <%= link_to "Login", login_path, method: :get %>
+      <%= link_to "Login", login_path, method: :get %> 
     </h3>
   </div>
 <% end %>
