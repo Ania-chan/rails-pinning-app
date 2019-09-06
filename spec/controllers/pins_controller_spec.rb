@@ -23,12 +23,6 @@ RSpec.describe PinsController do
       expect(assigns[:pins]).to eq(Pin.all)
     end
 
-    it 'redirects to Login when logged out' do
-      logout(@user)
-      get :index
-      expect(response).to redirect_to(:login)
-    end
-
   end
 
   describe "GET new" do
@@ -218,6 +212,39 @@ RSpec.describe PinsController do
       logout(@user)
       patch :update, params: { id: @pin_hash.id, pin: { title: nil } }
       expect(response).to redirect_to(:login)
+    end
+  end
+
+  describe "POST repin" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      login(@user)
+      @pin = FactoryGirl.create(:pin)
+    end
+
+    after(:each) do
+      pin = Pin.find_by_slug("rails-wizard")
+      pinning = Pinning.find_by_user_id(@user.id)
+      if !pin.nil?
+        pinning.destroy
+        pin.destroy
+      end
+      logout(@user)
+    end
+
+    it 'responds with a redirect' do
+      post :repin, params: { id: @pin.id }
+      expect(response.redirect?).to be(true)
+    end
+
+    it 'creates a user.pin' do
+      post :repin, params: { id: @pin.id }
+      expect(@user.pins).to include(@pin)
+    end
+
+    it 'redirects to the user show page' do
+      post :repin, params: { id: @pin.id }
+      expect(response).to redirect_to(user_path(@user))
     end
   end
 

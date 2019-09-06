@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_secure_password
   validates_presence_of :first_name, :last_name, :email, :password
   validates_uniqueness_of :email
-  has_many :pinnings
+  has_many :pinnings, dependent: :delete_all
   has_many :pins, through: :pinnings
 
   def self.authenticate(email, password)

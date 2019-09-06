@@ -28,9 +28,7 @@ FactoryGirl.define do
     password "secret"
 
     after(:create) do |user|
-      3.times do
-        user.pinnings.create(pin: FactoryGirl.create(:pin))
-      end
+      create_list(:pin, 3)
     end
   end
 end  
