@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   delete 'logout/:id' => "users#logout", as: :logout
 
   post "pins/repin/:id" => "pins#repin", as: 'repin'
+
+  get "boards/name-:name" => "boards#show_board_by_name", as: "board_by_name"
     
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
