@@ -20,7 +20,7 @@
       <span class="caret"></span>
     </button>
  
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
       <% if(current_user.boards) %>
         <% current_user.boards.each do |board|  %>
           <li role="presentation">
@@ -30,7 +30,11 @@
             </a>
           </li>
         <% end %>
+        <li role="presentation" class="divider"></li>
       <% end %>
+      <li role="presentation">
+        <%= link_to "My Pins", user_path(current_user.id), "role" => "menuitem", "tabindex" => "-1" %>
+      </li> 
       <li role="presentation" class="divider"></li>
       <li role="presentation">
         <%= link_to "Add a Pin", new_pin_path, "role" => "menuitem", "tabindex" => "-1" %>
