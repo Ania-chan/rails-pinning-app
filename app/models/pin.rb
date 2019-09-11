@@ -7,5 +7,5 @@ class Pin < ActiveRecord::Base
   belongs_to :user, optional: true
   has_many :pinnings, dependent: :delete_all
   has_many :users, through: :pinnings
-  accepts_nested_attributes_for :pinnings 
+  accepts_nested_attributes_for :pinnings, allow_destroy: true 
 end

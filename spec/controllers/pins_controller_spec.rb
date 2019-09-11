@@ -7,9 +7,11 @@ RSpec.describe PinsController do
 
   after(:each) do
     if !@user.destroyed?
+      @user.pinnings.destroy_all
+      @user.boards.destroy_all 
       @user.destroy
     end
-  end  
+  end
 
   describe "GET index" do
     
