@@ -33,10 +33,6 @@
   <%= link_to edit_pin_path(@pin), class: "btn btn-sm btn-default", method: "get" do %>
     Edit
   <% end %>  
-  # <%= link_to repin_path(@pin), class: "btn btn-sm btn-default", method: "post" do %>
-  #   <i class="fa fa-heart"></i>
-  #   Repin!
-  # <% end %>  
   	<%= render partial: "shared/repin_form", locals: { pin: @pin } %> 
 </div>
 <br/>
