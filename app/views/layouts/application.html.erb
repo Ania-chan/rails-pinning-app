@@ -25,10 +25,7 @@
       <% if(current_user.boards) %>
         <% current_user.boards.each do |board|  %>
           <li role="presentation">
-          <%= link_to "#{board.name}", board_by_name_path(board.name), "role" => "menuitem",  "tabindex" => "-1" %> 
-            <a role="menuitem" tabindex="-1" href="PUT LINK TO BOARD HERE">
-              <%= board.name %>
-            </a>
+          <%= link_to "#{board.name}", board_path(board.id), "role" => "menuitem",  "tabindex" => "-1" %> 
           </li>
         <% end %>
         <li role="presentation" class="divider"></li>

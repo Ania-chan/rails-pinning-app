@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 2019_08_25_024417) do
     t.bigint "pin_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "board_id"
+    t.index ["board_id"], name: "index_pinnings_on_board_id"
     t.index ["pin_id"], name: "index_pinnings_on_pin_id"
     t.index ["user_id"], name: "index_pinnings_on_user_id"
   end

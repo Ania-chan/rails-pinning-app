@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @pins = current_user.pins
+    puts(@oins)
   end
 
   # GET /users/new

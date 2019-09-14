@@ -3,7 +3,7 @@
 </div>
 <hr/>
 
-<%= render partial: "shared/pins_list" %>
+<%= render partial: "shared/pins_list", locals: {pins: @pins} %>
 
 <%= link_to 'Edit your profile', edit_user_path(@user) %> |
 <%= link_to 'Back', root_path %>
