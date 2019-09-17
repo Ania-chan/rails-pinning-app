@@ -1,4 +1,4 @@
-<div class="pins">
+<div class="pins"> 
   <% @pins.each_slice(3) do |row| %>
     <div class="row">
       <% row.each do |pin| %>      
@@ -10,7 +10,7 @@
                   <img src="<%= pin.image.url(:thumb) %>" class="img-rounded">
                 <% elsif "#{pin.category.name}" == "rails" %>
                   <%= image_tag('rails-logo-thumbnail.png') %>
-                <% elsif "#{pin.category.name}" == "ruby" %>
+                <% elsif "#{pin.category.name}" == "ruby" %>                                                    
                   <%= image_tag('ruby-logo-thumbnail.png') %>
                 <% end %>
               </div>

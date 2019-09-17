@@ -37,5 +37,6 @@ FactoryGirl.define do
       user.pinnings.create(pin: FactoryGirl.create(:pin), board: user.boards.first)
     end
   end
-
 end  
+
+end
