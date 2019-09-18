@@ -221,6 +221,7 @@ RSpec.describe PinsController do
     before(:each) do
       @user = FactoryGirl.create(:user)
       login(@user)
+      @board = FactoryGirl.create(:board)
       @pin = FactoryGirl.create(:pin)
     end
 
@@ -235,18 +236,18 @@ RSpec.describe PinsController do
     end
 
     it 'responds with a redirect' do
-      post :repin, params: { id: @pin.id }
+      post :repin, params: { id: @pin.id, pin: {pinning: { board_id: @board.id, user_id: @user.id} } }
       expect(response.redirect?).to be(true)
     end
 
     it 'creates a user.pin' do
-      post :repin, params: { id: @pin.id }
+      post :repin, params: { id: @pin.id, pin: {pinning: { board_id: @board.id, user_id: @user.id} } }
       expect(@user.pins).to include(@pin)
     end
 
-    it 'redirects to the user show page' do
-      post :repin, params: { id: @pin.id }
-      expect(response).to redirect_to(user_path(@user))
+    it 'redirects to the board show page' do
+      post :repin, params: { id: @pin.id, pin: {pinning: { board_id: @board.id, user_id: @user.id} } }
+      expect(response).to redirect_to(board_path(@board.id))
     end
   end
 
