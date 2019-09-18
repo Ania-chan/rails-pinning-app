@@ -33,7 +33,7 @@ FactoryGirl.define do
 
       after(:create) do |user|
         user.boards << FactoryGirl.create(:board)
-        create_list :pin, 3, pin: FactoryGirl.create(:pin), board: user.boards.first
+        create_list :pin, 3, :board => user.boards.first
     end
   end  
 
