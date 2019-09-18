@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  def chosen_board
+    @board ||= Board.find(params[:pin][:pinning][:board_id])
+  end
+  helper_method :chosen_board
+
   def require_login
     if !logged_in?
       redirect_to login_path
