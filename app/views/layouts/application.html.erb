@@ -33,12 +33,18 @@
       <li role="presentation">
         <%= link_to "My Pins", user_path(current_user.id), "role" => "menuitem", "tabindex" => "-1" %>
       </li> 
+      <li role="presentation">
+        <%= link_to "Following List", followers_path, "role" => "menuitem", "tabindex" => "-1" %>
+      </li>  
       <li role="presentation" class="divider"></li>
       <li role="presentation">
         <%= link_to "Add a Pin", new_pin_path, "role" => "menuitem", "tabindex" => "-1" %>
       </li>        
       <li role="presentation">
         <%= link_to "Add a Board", new_board_path, "role" => "menuitem", "tabindex" => "-1" %>
+      </li>  
+      <li role="presentation">
+        <%= link_to "Follow Users", new_follower_path, "role" => "menuitem", "tabindex" => "-1" %>
       </li>        
       <li role="presentation" class="divider"></li>
       <li role="presentation">

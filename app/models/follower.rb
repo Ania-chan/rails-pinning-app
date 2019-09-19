@@ -1,3 +1,3 @@
-class Follower < ApplicationRecord
+class Follower < ActiveRecord::Base
   belongs_to :user
 end

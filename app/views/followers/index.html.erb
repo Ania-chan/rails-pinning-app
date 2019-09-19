@@ -1,29 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Followers</h1>
+<h1>Following List</h1>
+<hr/>
 
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Follower</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @followers.each do |follower| %>
-      <tr>
-        <td><%= follower.user %></td>
-        <td><%= follower.follower_id %></td>
-        <td><%= link_to 'Show', follower %></td>
-        <td><%= link_to 'Edit', edit_follower_path(follower) %></td>
-        <td><%= link_to 'Destroy', follower, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-md-6">
+  <% @followed.each do |followed_user| %>
+    <h2><%= followed_user.fullname %></h2>
+    <% followed_user.boards.each do |board| %>
+      <li>
+        <%= link_to "#{board.name}", board_path(board.id), "role" => "menuitem",  "tabindex" => "-1" %> 
+      </li>
+      <% end %>
+  <% end %>
+  </div>
+</div>
 
 <br>
 
-<%= link_to 'New Follower', new_follower_path %>
+<%= link_to 'Follow other users!', new_follower_path %>
