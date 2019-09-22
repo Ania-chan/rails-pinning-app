@@ -32,9 +32,27 @@ FactoryGirl.define do
     last_name "Coder"
     password "secret"
 
-    after(:create) do |user|
-      board = FactoryGirl.create(:board, user: user)
-      create_list :pinning, 3, board: board, user: user
+    factory :user_with_boards do
+      after(:create) do |user|
+        board = FactoryGirl.create(:board, user: user)
+        create_list :pinning, 3, board: board, user: user
+      end
+    end
+
+    factory :user_with_boards_and_followers do
+        after(:create) do |user|
+          3.times do
+            follower = FactoryGirl.create(:user)
+            Follower.create(user: user, follower_id: follower.id)
+          end
+        end
+      end
+    end
+
+    factory :user_with_followees do
+      after(:create) do |user|
+        create_list :user, 3, follower_id: user.id
+      end
     end
   end
 end

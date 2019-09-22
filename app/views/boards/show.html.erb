@@ -7,5 +7,7 @@
 
 <%= render partial: "shared/pins_list" %>
 
-<%= link_to 'Edit', edit_board_path(@board) %> |
+<% if logged_in? && current_user %>
+  <%= link_to 'Edit', edit_board_path(@board) %> |
+<% end %>
 <%= link_to 'Back', root_path %>

@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :pinnings, dependent: :delete_all
   has_many :pins, through: :pinnings
   has_many :boards, inverse_of: :user, dependent: :delete_all
+  has_many :board_pinners, inverse_of: :user, dependent: :destroy
 
   def self.authenticate(email, password)
     @user = User.find_by_email(email)
@@ -26,8 +27,16 @@ class User < ActiveRecord::Base
     User.all - self.followed - [self]
   end
 
-  def fullname
-    "#{self.first_name} #{self.last_name}"
+  def user_followers
+    self.followers.map{ |f| User.find(f.follower_id) }
+  end
+
+  def full_name
+    first_name + ' ' + last_name
+  end
+
+  def pinnable_boards
+    self.boards + self.board_pinners.map{ |bp| bp.board }
   end
 
 end

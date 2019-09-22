@@ -16,7 +16,7 @@
     <%= f.hidden_field :user_id, value: user_to_follow.id %>
     <%= f.hidden_field :follower_id, value: current_user.id %> 
 
-    <%= f.label :user_name, value: user_to_follow.fullname %>
+    <%= f.label :user_name, value: user_to_follow.full_name %>
 
     <%= f.fields_for :boards do |board| %>
       <h4>Boards</h4>
