@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :pinnings, dependent: :delete_all
   has_many :pins, through: :pinnings
   has_many :boards, inverse_of: :user, dependent: :delete_all
+  has_many :followers, dependent: :destroy
   has_many :board_pinners, inverse_of: :user, dependent: :destroy
 
   def self.authenticate(email, password)

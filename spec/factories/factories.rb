@@ -37,9 +37,8 @@ FactoryGirl.define do
         board = FactoryGirl.create(:board, user: user)
         create_list :pinning, 3, board: board, user: user
       end
-    end
 
-    factory :user_with_boards_and_followers do
+      factory :user_with_boards_and_followers do
         after(:create) do |user|
           3.times do
             follower = FactoryGirl.create(:user)
@@ -48,6 +47,7 @@ FactoryGirl.define do
         end
       end
     end
+
 
     factory :user_with_followees do
       after(:create) do |user|

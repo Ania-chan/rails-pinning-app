@@ -34,6 +34,9 @@
         <%= link_to "My Pins", user_path(current_user.id), "role" => "menuitem", "tabindex" => "-1" %>
       </li> 
       <li role="presentation">
+        <%= link_to "Board I can edit", boards_path, "role" => "menuitem", "tabindex" => "-1" %>
+      </li> 
+      <li role="presentation">
         <%= link_to "Following List", followers_path, "role" => "menuitem", "tabindex" => "-1" %>
       </li>  
       <li role="presentation" class="divider"></li>
