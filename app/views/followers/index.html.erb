@@ -5,14 +5,14 @@
 
 <div class="row">
   <div class="col-md-6">
-  <% @followed.each do |followed_user| %>
-    <h2><%= followed_user.full_name %></h2>
-    <% followed_user.boards.each do |board| %>
-      <li>
-        <%= link_to "#{board.name}", board_path(board.id), "role" => "menuitem",  "tabindex" => "-1" %> 
-      </li>
-      <% end %>
-  <% end %>
+    <% @followed.each do |followed_user| %>
+      <h2><%= followed_user.full_name %></h2>
+      <% followed_user.boards.each do |board| %>
+        <li>
+          <%= link_to "#{board.name}", board_path(board.id), "role" => "menuitem",  "tabindex" => "-1" %> 
+        </li>
+        <% end %>
+    <% end %>
   </div>
 </div>
 

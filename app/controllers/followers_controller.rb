@@ -1,6 +1,6 @@
 class FollowersController < ApplicationController
   before_action :set_follower, only: [:show]
-  before_action :require_login, only: [:new, :create]
+  before_action :require_login, only: [:index, :new, :create]
 
   # GET /followers
   # GET /followers.json

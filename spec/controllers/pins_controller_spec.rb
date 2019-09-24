@@ -3,6 +3,7 @@ RSpec.describe PinsController do
   before(:each) do 
     @user = FactoryGirl.create(:user_with_boards)
     login(@user)
+    @board_pinner = BoardPinner.create(user: @user, board: FactoryGirl.create(:board))
   end
 
   after(:each) do
@@ -47,6 +48,11 @@ RSpec.describe PinsController do
       logout(@user)
       get :new
       expect(response).to redirect_to(:login)
+    end
+
+    it 'assigns @pinnable_boards to all pinnable boards' do
+      get :new
+      expect(assigns[:pinnable_boards]).to eq(@pinnable_boards)
     end
   end
   
@@ -106,6 +112,18 @@ RSpec.describe PinsController do
       logout(@user)
       post :create, params: { pin: @pin_hash }
       expect(response).to redirect_to(:login)
+    end
+
+    it 'pins to a board for which the user is a board_pinner' do
+      @pin_hash[:pinnings_attributes] = []
+      board = @board_pinner.board
+      @pin_hash[:pinnings_attributes] << {board_id: board.id, user_id: @user.id}
+      post :create, params: { pin: @pin_hash }
+      pinning = BoardPinner.where("user_id=? AND board_id=?", @user.id, board.id)
+
+      if pinning.present?
+        pinning.destroy_all
+      end
     end
   end
 
@@ -249,6 +267,25 @@ RSpec.describe PinsController do
       post :repin, params: { id: @pin.id, pin: {pinning: { board_id: @board.id, user_id: @user.id} } }
       expect(response).to redirect_to(board_path(@board.id))
     end
+
+    it 'creates a pinning to a board on which the user is a board_pinner' do
+      @pin_hash = {
+        title: @pin.title, 
+        url: @pin.url, 
+        slug: @pin.slug, 
+        text: @pin.text,
+        category_id: @pin.category_id
+      }
+      board = @board_pinner.board
+      @pin_hash[:pinning] = {board_id: board.id}
+      post :repin, params: { id: @pin.id, pin: @pin_hash }
+      pinning = BoardPinner.where("board_id=?", board.id)
+      expect(pinning.present?).to be(true)
+      
+      if pinning.present?
+        pinning.destroy_all
+      end
+    end    
   end
 
 end

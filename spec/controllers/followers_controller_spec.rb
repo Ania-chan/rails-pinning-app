@@ -7,7 +7,7 @@ RSpec.describe FollowersController do
   end
   after(:each) do
     if !@user.destroyed?
-      Follower.where("follower_id=?", @user.id).first.destroy_all
+      Follower.where("follower_id=? OR user_id=?", @user.id, @user.id).destroy_all
       @user.followers.destroy_all
       @user.destroy
     end
@@ -22,7 +22,7 @@ RSpec.describe FollowersController do
  
     it 'populates @followed with all followed users' do
       get :index
-      expect(assigns[:pins]).to eq(@user.followed)
+      expect(assigns[:followed]).to eq(@user.followed)
     end
  
     it 'redirects to the login page if user is not logged in' do
@@ -45,8 +45,8 @@ RSpec.describe FollowersController do
     end
  
     it 'assigns @users to equal the users not followed by @user' do
-      get :new
-      expect(assigns[:users]).to equal(@user.not_followed)
+      get :new, params: {users: @user.not_followed}
+      expect(assigns[:users]).to eq(@user.not_followed)
     end      
  
     it 'redirects to the login page if user is not logged in' do
@@ -74,23 +74,23 @@ RSpec.describe FollowersController do
     end
  
     it 'responds with a redirect' do
-      post :create, params: {follower: follower}
+      post :create, params: { follower: @follower_hash }
       expect(response.redirect?).to be(true)
     end
  
     it 'creates a follower' do
-      post :create, params: {follower: follower}
+      post :create, params: { follower: @follower_hash }
       expect(@follower_user.present?).to be(true)
     end
  
     it 'redirects to the index view' do
-      post :create, params: {follower: follower}
+      post :create, params: { follower: @follower_hash }
       expect(response).to redirect_to(followers_url)
     end
  
     it 'redirects to the login page if user is not logged in' do
       logout(@user)
-      post :create, params: {follower: follower}
+      post :create, params: { follower: @follower_hash }
       expect(response).to redirect_to(:login)
     end 
   end
