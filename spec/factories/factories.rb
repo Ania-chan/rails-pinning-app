@@ -42,7 +42,7 @@ FactoryGirl.define do
         after(:create) do |user|
           3.times do
             follower = FactoryGirl.create(:user)
-            Follower.create(user_id: user, follower_id: follower.id)
+            Follower.create(user: user, follower_id: follower.id)
           end
         end
       end

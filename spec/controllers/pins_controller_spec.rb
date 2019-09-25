@@ -119,7 +119,7 @@ RSpec.describe PinsController do
       board = @board_pinner.board
       @pin_hash[:pinnings_attributes] << {board_id: board.id, user_id: @user.id}
       post :create, params: { pin: @pin_hash }
-      pinning = BoardPinner.where("user_id=? AND board_id=?", @user.id, board.id)
+      pinning = Pinning.where("user_id=? AND board_id=?", @user.id, board.id)
 
       if pinning.present?
         pinning.destroy_all
@@ -279,7 +279,7 @@ RSpec.describe PinsController do
       board = @board_pinner.board
       @pin_hash[:pinning] = {board_id: board.id}
       post :repin, params: { id: @pin.id, pin: @pin_hash }
-      pinning = BoardPinner.where("board_id=?", board.id)
+      pinning = Pinning.where("user_id=? AND board_id=?", @user.id, board.id)
       expect(pinning.present?).to be(true)
       
       if pinning.present?
